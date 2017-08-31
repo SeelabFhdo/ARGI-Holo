@@ -32,7 +32,7 @@ public class ColorItemHandler : BasicItemHandler {
         float s;
         float v;
         Color.RGBToHSV(c, out h, out s, out v);
-        BroadcastMessage("SetText", v > 0 ? "An" : "Aus");
+        BroadcastMessage("SetText", v > 0 ? "ON" : "OFF");
 
     }
 

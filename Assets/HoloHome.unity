@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4501136, g: 0.50015557, b: 0.5754593, a: 1}
+  m_IndirectSpecularColor: {r: 0.45011288, g: 0.50015485, b: 0.57545817, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -108,57 +108,6 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &226653875
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4036136962778140, guid: a862c029f51f9bc4d898d53029d3b1c1, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4036136962778140, guid: a862c029f51f9bc4d898d53029d3b1c1, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4036136962778140, guid: a862c029f51f9bc4d898d53029d3b1c1, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4036136962778140, guid: a862c029f51f9bc4d898d53029d3b1c1, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4036136962778140, guid: a862c029f51f9bc4d898d53029d3b1c1, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4036136962778140, guid: a862c029f51f9bc4d898d53029d3b1c1, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4036136962778140, guid: a862c029f51f9bc4d898d53029d3b1c1, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4036136962778140, guid: a862c029f51f9bc4d898d53029d3b1c1, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1400167403125860, guid: a862c029f51f9bc4d898d53029d3b1c1, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 23508127290217622, guid: a862c029f51f9bc4d898d53029d3b1c1,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 97b7c9553b77d2d49969bbc2d7f91dd1, type: 2}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: a862c029f51f9bc4d898d53029d3b1c1, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &258685129 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 154114, guid: c8685776cafe5d24493303e077fffcfb, type: 2}
@@ -481,7 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac049695e48fd8c4d8eb198497f21463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemURL: http://192.168.1.250:8090/rest/items/
+  ItemURL: http://192.168.2.50:8080/rest/items/
   switchPrefab: {fileID: 1027264886495326, guid: 13f57ed4aeee60c4ca393ca964c034f1,
     type: 2}
   rollershutterPrefab: {fileID: 1671705018859500, guid: 3a44e5984edd50744a86bf1f7c957215,
