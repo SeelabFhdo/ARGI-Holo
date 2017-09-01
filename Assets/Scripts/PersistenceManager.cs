@@ -22,9 +22,9 @@ public class PersistenceManager : MonoBehaviour {
     private Item[] items;
     void Start () {
         persistfile = Application.persistentDataPath + "/items.json";
+        itemObjects = new Dictionary<string, GameObject>();
         if (fetchFromUrl)
         {
-            itemObjects = new Dictionary<string, GameObject>();
             WWWForm form = new WWWForm(); // Just fot getting the headers;
             Dictionary<string, string> headers = form.headers;
             headers["Accept"] = "application/json";
@@ -62,6 +62,17 @@ public class PersistenceManager : MonoBehaviour {
         } else
         {
             Debug.Log("File not existing");
+        }
+
+        //DEBUG
+        foreach (Item i in items)
+        {
+            if(i == null)
+            {
+                Debug.Log("NULL ITEM");
+                continue;
+            }
+            Debug.Log("LOADED" + i.name);
         }
     }
 
