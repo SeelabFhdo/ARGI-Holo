@@ -444,7 +444,6 @@ MonoBehaviour:
   ColorPrefab: {fileID: 1600195440636192, guid: a862c029f51f9bc4d898d53029d3b1c1,
     type: 2}
   fetchFromUrl: 0
-  persistfile: items.json
 --- !u!82 &1372963120
 AudioSource:
   m_ObjectHideFlags: 0
@@ -678,6 +677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMeshObject: {fileID: 1870064085}
+  persistence: {fileID: 1372963119}
 --- !u!114 &1971704274
 MonoBehaviour:
   m_ObjectHideFlags: 0
