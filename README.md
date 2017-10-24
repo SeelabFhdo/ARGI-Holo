@@ -1,6 +1,6 @@
-# MASHCo-Holo
+# ARGI-Holo
 
-This is the MASHCo holographic App for the Microsoft Hololens. It uses the RESTful HTTP-API of Eclipse-Smarthome to show smarthome items to the user and send commands to them. The App uses QR-Codes to create holograms and bind them to a real item. You can find a JavaFX-Tool to generate the QR-Codes [here](https://github.com/SeelabFhdo/SmarthomeLabeler). After creating the QR-Codes just say `scan` while the app is running, get close to the QR-Code and look on it.
+This is the ARGI holographic App for the Microsoft Hololens. It uses the RESTful HTTP-API of Eclipse-Smarthome to show smarthome items to the user and send commands to them. The App uses QR-Codes to create holograms and bind them to a real item. You can find a JavaFX-Tool to generate the QR-Codes [here](https://github.com/SeelabFhdo/SmarthomeLabeler). After creating the QR-Codes just say `scan` while the app is running, get close to the QR-Code and look on it.
 
 ## Building
 Clone the project, open it with Unity 2017 or newer, build it for Windows (UWP) and build the final app with Visual Studio (best approach for debugging). Alternatively you can build and install the App directly with the HoloToolkit which is included in the project (easiest and fastest approach)
