@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using UnityEngine.VR.WSA.Input;
+﻿using System.Collections;
+using UnityEngine;
+
 
 public class GazeGestureManager : MonoBehaviour
 {
@@ -8,24 +9,28 @@ public class GazeGestureManager : MonoBehaviour
     // Represents the hologram that is currently being gazed at.
     public GameObject FocusedObject { get; private set; }
     public GameObject ManipulatingObject { get; private set; }
+    public GameObject textMeshObject;
+    TextMesh textMesh;
 
     public AudioClip ClickSound;
     private AudioSource audiosource;
 
     private bool IsManipulating;
+    private bool manipulatingEnabled;
     Vector3 manipulationStartingPosition;
 
-    GestureRecognizer TapRecognizer;
-    GestureRecognizer ManipulationRecognizer;
+    UnityEngine.XR.WSA.Input.GestureRecognizer TapRecognizer;
+    UnityEngine.XR.WSA.Input.GestureRecognizer ManipulationRecognizer;
 
     // Use this for initialization
     void Awake()
     {
         Instance = this;
+        this.textMesh = this.textMeshObject.GetComponent<TextMesh>();
         audiosource = GetComponent<AudioSource>();
         // Set up a GestureRecognizer to detect Select gestures.
-        TapRecognizer = new GestureRecognizer();
-        ManipulationRecognizer = new GestureRecognizer();
+        TapRecognizer = new UnityEngine.XR.WSA.Input.GestureRecognizer();
+        ManipulationRecognizer = new UnityEngine.XR.WSA.Input.GestureRecognizer();
         TapRecognizer.TappedEvent += (source, tapCount, ray) =>
         {
             // Send an OnSelect message to the focused object and its ancestors.
@@ -40,7 +45,7 @@ public class GazeGestureManager : MonoBehaviour
             }
         };
         ManipulationRecognizer.SetRecognizableGestures(
-                GestureSettings.ManipulationTranslate);
+                UnityEngine.XR.WSA.Input.GestureSettings.ManipulationTranslate);
 
         ManipulationRecognizer.ManipulationStartedEvent += ManipulationRecognizer_ManipulationStartedEvent;
         ManipulationRecognizer.ManipulationUpdatedEvent += ManipulationRecognizer_ManipulationUpdatedEvent;
@@ -51,21 +56,37 @@ public class GazeGestureManager : MonoBehaviour
         ManipulationRecognizer.StartCapturingGestures();
     }
 
-    private void ManipulationRecognizer_ManipulationStartedEvent(InteractionSourceKind source, Vector3 position, Ray ray)
+    IEnumerator HideTextAfterTime(float time)
     {
-        if(FocusedObject != null)
+        yield return new WaitForSeconds(time);
+        this.textMeshObject.SetActive(false);
+        
+        
+    }
+
+    public void EnableManipulating(bool enable)
+    {
+        manipulatingEnabled = enable;
+        this.textMesh.text = enable ? "manipulating..." : "cancled...";
+        this.textMeshObject.SetActive(true);
+        StartCoroutine(HideTextAfterTime(1.5f));
+    }
+
+    private void ManipulationRecognizer_ManipulationStartedEvent(UnityEngine.XR.WSA.Input.InteractionSourceKind source, Vector3 position, Ray ray)
+    {
+        if(FocusedObject != null && manipulatingEnabled)
         {
             Debug.Log("Started");
             manipulationStartingPosition = position;
             ManipulatingObject = FocusedObject.gameObject;
             ManipulatingObject.SendMessageUpwards("PerformManipulationStart", position);
-            audiosource.PlayOneShot(ClickSound, 1);
             
         }
-        
+        audiosource.PlayOneShot(ClickSound, 1);
+
     }
 
-    private void ManipulationRecognizer_ManipulationUpdatedEvent(InteractionSourceKind source, Vector3 position, Ray ray)
+    private void ManipulationRecognizer_ManipulationUpdatedEvent(UnityEngine.XR.WSA.Input.InteractionSourceKind source, Vector3 position, Ray ray)
     {
         if(!IsManipulating)
         {
@@ -81,7 +102,7 @@ public class GazeGestureManager : MonoBehaviour
         }
     }
 
-    private void ManipulationRecognizer_ManipulationCompletedEvent(InteractionSourceKind source, Vector3 position, Ray ray)
+    private void ManipulationRecognizer_ManipulationCompletedEvent(UnityEngine.XR.WSA.Input.InteractionSourceKind source, Vector3 position, Ray ray)
     {
         Debug.Log("Completed");
         if (ManipulatingObject != null)
@@ -92,7 +113,7 @@ public class GazeGestureManager : MonoBehaviour
         ManipulatingObject = null;
     }
 
-    private void ManipulationRecognizer_ManipulationCanceledEvent(InteractionSourceKind source, Vector3 position, Ray ray)
+    private void ManipulationRecognizer_ManipulationCanceledEvent(UnityEngine.XR.WSA.Input.InteractionSourceKind source, Vector3 position, Ray ray)
     {
         Debug.Log("Canceled");
         if (ManipulatingObject != null)

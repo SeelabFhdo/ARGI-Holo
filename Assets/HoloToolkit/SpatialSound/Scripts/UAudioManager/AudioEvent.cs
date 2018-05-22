@@ -62,15 +62,7 @@ namespace HoloToolkit.Unity
         [Tooltip("The size of the Microsoft Spatial Sound room.  Only used when positioning is set to SpatialSound.")]
         public SpatialSoundRoomSizes RoomSize = SpatialSoundSettings.DefaultSpatialSoundRoom;
 
-        [Tooltip("The minimum gain, in decibels.  Only used when positioning is set to SpatialSound.")]
-        [Range(SpatialSoundSettings.MinimumGainDecibels, SpatialSoundSettings.MaximumGainDecibels)]
-        public float MinGain = SpatialSoundSettings.DefaultMinGain;
-
-        [Tooltip("The maximum gain, in decibels.  Only used when positioning is set to SpatialSound.")]
-        [Range(SpatialSoundSettings.MinimumGainDecibels, SpatialSoundSettings.MaximumGainDecibels)]
-        public float MaxGain = SpatialSoundSettings.DefaultMaxGain;
-
-        [Tooltip("The volume attenuation curve for simple 3D sounds. Only used when positioning is set to 3D")]
+        [Tooltip("The volume attenuation curve for simple 3D sounds. Used when positioning is set to 3D or Spatial")]
         public AnimationCurve AttenuationCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f); // By default simple attenuation
 
         [Tooltip("The spatial attenuation curve for simple 3D sounds. Only used when positioning is set to 3D")]
@@ -79,9 +71,6 @@ namespace HoloToolkit.Unity
         [Tooltip("The spread attenuation curve for simple 3D sounds. Only used when positioning is set to 3D")]
         public AnimationCurve SpreadCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 0f); // by default no spread
 
-        [Tooltip("The lowpass attenuation curve for simple 3D sounds. Only used when positioning is set to 3D")]
-        public AnimationCurve LowPassCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 0f); // by default no lowpass
-
         [Tooltip("The reverb attenuation curve for simple 3D sounds. Only used when positioning is set to 3D")]
         public AnimationCurve ReverbCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 0f); // by default no reverb
 
@@ -89,12 +78,8 @@ namespace HoloToolkit.Unity
         [Range(1f, 500f)]
         public float MaxDistanceAttenuation3D = 100f;
 
-        [Tooltip("The distance, in meters at which the gain is 0 decibels.  Only used when positioning is set to SpatialSound.")]
-        [Range(SpatialSoundSettings.MinimumUnityGainDistanceMeters, SpatialSoundSettings.MaximumUnityGainDistanceMeters)]
-        public float UnityGainDistance = SpatialSoundSettings.DefaultUnityGainDistance;
-
         [Tooltip("The AudioMixerGroup to use when playing.")]
-        public AudioMixerGroup Bus;
+        public AudioMixerGroup AudioBus;
 
         [Tooltip("The default or center pitch around which randomization can be done.")]
         [Range(-3.0f, 3.0f)]
@@ -158,8 +143,8 @@ namespace HoloToolkit.Unity
         /// <returns>True if this AudioEvent's container is one of the continuous types (random or sequential), otherwise false.</returns>
         public bool IsContinuous()
         {
-            return Container.containerType == AudioContainerType.ContinuousRandom ||
-                   Container.containerType == AudioContainerType.ContinuousSequence;
+            return Container.ContainerType == AudioContainerType.ContinuousRandom ||
+                   Container.ContainerType == AudioContainerType.ContinuousSequence;
         }
 
         /// <summary>

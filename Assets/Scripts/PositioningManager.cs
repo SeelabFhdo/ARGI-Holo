@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.VR.WSA.Persistence;
-using UnityEngine.VR.WSA;
+
+
 
 /// <summary>
 /// GestureAction performs custom actions based on
@@ -18,20 +18,20 @@ public class PositioningManager : MonoBehaviour
     public string ObjectAnchorStoreName;
 
 
-    WorldAnchorStore anchorStore;
+    UnityEngine.XR.WSA.Persistence.WorldAnchorStore anchorStore;
 
 
     void Start()
     {
-        WorldAnchorStore.GetAsync(AnchorStoreReady);
+        UnityEngine.XR.WSA.Persistence.WorldAnchorStore.GetAsync(AnchorStoreReady);
     }
 
-    void AnchorStoreReady(WorldAnchorStore store)
+    void AnchorStoreReady(UnityEngine.XR.WSA.Persistence.WorldAnchorStore store)
     {
         anchorStore = store;
         Debug.Log("looking for " + ObjectAnchorStoreName);
         anchorStore.Load(ObjectAnchorStoreName, gameObject);
-        WorldAnchor anchor = gameObject.GetComponent<WorldAnchor>();
+        UnityEngine.XR.WSA.WorldAnchor anchor = gameObject.GetComponent<UnityEngine.XR.WSA.WorldAnchor>();
         if (anchor != null)
         {
             Destroy(anchor);
@@ -56,7 +56,7 @@ public class PositioningManager : MonoBehaviour
 
     void PerformManipulationStop()
     {
-        WorldAnchor attachingAnchor = gameObject.AddComponent<WorldAnchor>();
+        UnityEngine.XR.WSA.WorldAnchor attachingAnchor = gameObject.AddComponent<UnityEngine.XR.WSA.WorldAnchor>();
         if (attachingAnchor.isLocated)
         {
             Debug.Log("Saving persisted position immediately");
@@ -73,7 +73,7 @@ public class PositioningManager : MonoBehaviour
     void PerformManipulationStart(Vector3 position)
     {
         manipulationPreviousPosition = position;
-        WorldAnchor anchor = gameObject.GetComponent<WorldAnchor>();
+        UnityEngine.XR.WSA.WorldAnchor anchor = gameObject.GetComponent<UnityEngine.XR.WSA.WorldAnchor>();
         if (anchor != null)
         {
             DestroyImmediate(anchor);
@@ -101,7 +101,7 @@ public class PositioningManager : MonoBehaviour
     }
 
 
-    private void AttachingAnchor_OnTrackingChanged(WorldAnchor self, bool located)
+    private void AttachingAnchor_OnTrackingChanged(UnityEngine.XR.WSA.WorldAnchor self, bool located)
     {
         if (located)
         {
@@ -109,7 +109,7 @@ public class PositioningManager : MonoBehaviour
             bool saved = anchorStore.Save(ObjectAnchorStoreName, self);
             Debug.Log("saved: " + saved);
             self.OnTrackingChanged -= AttachingAnchor_OnTrackingChanged;
-            Destroy(gameObject.GetComponent<WorldAnchor>());
+            Destroy(gameObject.GetComponent<UnityEngine.XR.WSA.WorldAnchor>());
         }
     }
 }
